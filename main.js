@@ -138,3 +138,12 @@ console.log(`Values are ${myComputer["monitor"]} and ${myComputer["motherboard"]
 
 // Values from nested object
 console.log(myComputerPro["monitor"]["size"]); // Output "22inch"
+
+// for...in loop ===================================
+var myPC = { monitor: true, speaker: false, CPU_box: "black", motherboard: "Gigabyte" };
+
+for (let props in myPC) {
+  console.log(props); // property name only
+  console.log(myPC[props]); // value only
+  console.log(props + ": " + myPC[props]);
+}
