@@ -45,4 +45,96 @@ function sumRest(a, b, ...numbers) {
 }
 sumRest(20, 30, 1, 2, 3, 4, 5);
 
-// Dynamic function
+// Dynamic function (without function name)
+var myName = function (value) {
+  return value;
+};
+console.log(myName("Mostafa"));
+
+// ES6 Variables (var, let, const) ==================================================
+var myName = "Mostafa";
+myName = "Mahmud"; // Reasigned with myName
+
+console.log(myName); // Output Mahmud
+
+let me = "Mostafa";
+me = "Mahmud"; // Reasign with me
+
+console.log(me); // Output Mahmud
+
+// var and let can be reasigned but const can be reasigned
+const sonName = "Shams";
+// sonName = "Safwaan"; // It can not be
+
+// var can be redeclared and last value is executed but let and const can't be
+var country = "Bangladesh";
+var country = "USA"; // Redaclared...
+
+console.log(country);
+
+// let and const can not be redeclared
+let num = 3;
+// let num = 5; // Redeclare can not be
+
+const name = "Shams";
+// const name = "Sadia"; // Redeclare can not be
+
+// Variable Scope (local)
+function myFuncForLocalVar() {
+  var localName = "Javascript";
+  console.log(localName);
+}
+myFuncForLocalVar();
+
+// Variable Scope (global)
+var globalName = "ECMAScript6";
+function myFunction() {
+  console.log(globalName);
+}
+myFunction();
+console.log(globalName);
+
+// Variable Hoisting (Firstly value assign then variable declare)
+subName = "CSE";
+console.log(subName);
+var subName;
+
+// for loop usages ======================
+var i; // i for iteration
+for (i = 0; i < 100; i = i + 49) {
+  console.log("Allah"); // 3 times printed
+}
+
+// for...of loop usages =======================
+var subArray = ["CSE", "Math", "English", "Physics", "Chemistry"];
+for (let subject of subArray) {
+  console.log(subject);
+}
+
+// Create Objects and Use their values =======================================
+var myComputer = {
+  monitor: true,
+  speaker: false,
+  CPU_box: "black",
+  motherboard: "Gigabyte",
+};
+
+var myComputerPro = {
+  motherboard: {
+    processor: "core_i3",
+    VGA: false,
+    RAM: "4GB",
+  },
+
+  monitor: {
+    color: "silver",
+    size: "22inch",
+    LED: true,
+  },
+};
+
+console.log(`Values are ${myComputer["monitor"]} and ${myComputer["motherboard"]}`);
+// Output is "Values are true and Gigabyte"
+
+// Values from nested object
+console.log(myComputerPro["monitor"]["size"]); // Output 22inch
