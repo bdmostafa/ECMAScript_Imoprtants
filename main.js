@@ -367,3 +367,52 @@ if (map.has("status")) {
 } else {
   console.log("Not found"); // Not found
 }
+
+// ES6 Promises ============================================================
+
+// Basic idea on Promise (fulfill, reject)
+let myPromise = new Promise((resolve, reject) => {
+  let a = 1 + 2;
+  if (a == 4) {
+    resolve("Success");
+  } else {
+    reject("Failed");
+  }
+});
+
+myPromise
+  .then((message) => {
+    console.log("'.then()' message is " + message);
+  })
+  .catch((message) => {
+    console.log("'.catch()' message is " + message); // '.catch()' message is Failed
+  });
+
+// Pending (setTimeout()), fulfill (resolve(), then()), reject (reject(), catch())
+let learnComplete = true;
+
+let learnJS = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (learnComplete) {
+      resolve("ECMAScript learning completed");
+    } else {
+      reject("ECMAScript learning not completed");
+    }
+  }, 3 * 1000);
+});
+
+// Consuming a Promise: then, catch, finally methods
+function startLearn() {
+  console.log("Create an account and enjoy learning!");
+}
+
+learnJS
+  .then((success) => {
+    console.log(success);
+  })
+  .catch((reason) => {
+    console.log(reason);
+  })
+  .finally(() => {
+    startLearn(); // finally() executes whether the promise is fulfilled or rejected
+  });
