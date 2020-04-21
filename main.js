@@ -147,3 +147,14 @@ for (let props in myPC) {
   console.log(myPC[props]); // value only
   console.log(props + ": " + myPC[props]);
 }
+
+// if...else statement =============================
+if (myComputerPro["motherboard"]["processor"] == "DualCore") {
+  console.log("Your PC is outdated");
+} else if (myComputerPro["motherboard"]["processor"] == "core_i3") {
+  console.log("Your PC is Okay to run");
+} else if (myComputerPro["motherboard"]["processor"] == "core_i7") {
+  console.log("Your PC is up to date");
+} else {
+  console.log("Not found");
+}
