@@ -273,3 +273,97 @@ console.log(Mostafa);
 //     studentSubject: 'IT'
 //   }
 console.log(Mostafa.studentSubject); // Output "IT"
+
+// ES6 Array ================================================================
+
+// Simple Array
+var simpleArray = ["A", "B", "C", "D", "E"];
+
+var simpleArrayConstructor = new Array("A", "B", "C", "D", "E");
+
+console.log(simpleArray); // [ 'A', 'B', 'C', 'D', 'E' ]
+
+for (let a of simpleArray) {
+  console.log(a);
+}
+
+for (let b of simpleArrayConstructor) {
+  console.log(b);
+}
+
+// ES6 Multidimensional Arrays
+var arrayOne = ["A", "B", "C", "D", "E"];
+
+var arrayTwo = ["F", "G", "H", "I", "J"];
+
+var arrayThree = ["K", "L", "M", "N", "O"];
+
+var total = [arrayOne, arrayTwo, arrayThree];
+
+console.log(total[1][2]); // H
+
+console.log(total[0][3]); // D
+
+console.log(total[2][5]); // undefined
+
+// ES6 Array de-structuring ================================
+var currencies = ["BDT", "USD", "CAD", "EUR", "JPY"];
+
+var [a, c, , d] = currencies;
+
+console.log(d); // EUR
+
+var [, , c, , e] = currencies;
+
+console.log(c); // CAD
+
+// ES6 Map (group of data)============================
+var map = new Map();
+
+map.set("country", "BD");
+map.set("currency", "BDT");
+map.set("status", "developing");
+map.set("education", "mid-level");
+map.set("GDP", "8+");
+
+console.log(map.keys()); // [Map Iterator] { 'country', 'currency', 'status', 'education', 'GDP' }
+console.log(map.values()); // [Map Iterator] { 'BD', 'BDT', 'developing', 'mid-level', '8+' }
+
+// ES6 Map loop
+for (let value of map.values()) {
+  console.log(value);
+}
+
+for (let key of map.keys()) {
+  console.log(key);
+}
+
+// ES6 Map (delete/get/clear/has)
+// delete(key)
+// get(key)
+// has(key)
+// clear()
+
+map.delete("GDP");
+for (let value of map.values()) {
+  console.log(value);
+}
+
+console.log(map.get("country")); // BD
+
+if (map.has("status")) {
+  console.log("Found"); // Found
+} else {
+  console.log("Not found");
+}
+
+map.clear();
+for (let value of map.values()) {
+  console.log(value);
+}
+
+if (map.has("status")) {
+  console.log("Found");
+} else {
+  console.log("Not found"); // Not found
+}
