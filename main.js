@@ -137,4 +137,4 @@ console.log(`Values are ${myComputer["monitor"]} and ${myComputer["motherboard"]
 // Output is "Values are true and Gigabyte"
 
 // Values from nested object
-console.log(myComputerPro["monitor"]["size"]); // Output 22inch
+console.log(myComputerPro["monitor"]["size"]); // Output "22inch"
