@@ -158,3 +158,118 @@ if (myComputerPro["motherboard"]["processor"] == "DualCore") {
 } else {
   console.log("Not found");
 }
+
+// Functions ==============================================================
+
+// Simple function
+function mycalc() {
+  var x = 10;
+  var y = 20;
+  var z = x + y;
+  console.log(z);
+}
+mycalc();
+
+// Parameterized function
+function parameterizedFunction(x, y) {
+  var z = x + y;
+  console.log(z);
+}
+parameterizedFunction(5, 10);
+
+// Rest Parameters (...x)
+function restParameterFunc(...x) {
+  console.log(x); // Shows all values as array
+  console.log(x[5]); // 6
+}
+restParameterFunc(1, 2, 3, 4, 5, 6, 7, "X", "Y", "Z");
+
+// Returning function
+function returnFunc1() {
+  return 100;
+}
+
+function returnFunc2() {
+  return 200;
+}
+
+function returnFunc3() {
+  return returnFunc1() + returnFunc2();
+}
+
+function returnFunc4() {
+  return returnFunc3();
+}
+
+console.log(returnFunc3()); // Output 300
+console.log(returnFunc3() + 33); // Output 333
+console.log(returnFunc4()); // Output 300
+
+// Anonymous function ================================================
+var anonymousFunc = function () {
+  return "Mostafa";
+};
+
+console.log(anonymousFunc()); // Mostafa
+
+// Anonymous function with parameter
+var anonymousFunction = function (x) {
+  return x;
+};
+
+console.log(anonymousFunction("Shams")); // Shams
+
+// Anonymous function with rest parameter
+var anonymousFunction = function (...x) {
+  return x;
+};
+
+console.log(anonymousFunction(1, 2, 3, 4, 5)); // all values as array
+// Anonymous function can be reassigned and last function is executed
+
+// Arrow function =========================================
+var arrowFunc = () => {
+  console.log("Ahmed Yeasin");
+};
+arrowFunc();
+
+// Arrow function with parameter
+var arrowFunc = (x) => {
+  console.log(x);
+};
+arrowFunc("Mostafa");
+
+// Arrow function with rest parameter
+var arrowFunc = (...x) => {
+  console.log(x);
+};
+arrowFunc("Mostafa", 1, 2, 3);
+
+// Arrow function with return
+var arrowFunc = (...x) => {
+  return x;
+};
+console.log(1, 2, 3);
+
+var arrowFunc = () => {
+  return "Mostafa";
+};
+console.log(arrowFunc());
+
+// Function Constructor ==========================
+function Student(name, roll, subject) {
+  this.studentName = name;
+  this.studentRoll = roll;
+  this.studentSubject = subject;
+}
+
+var Mostafa = new Student("Mostafa", 1, "IT");
+
+console.log(Mostafa);
+// Output is:
+// Student {
+//     studentName: 'Mostafa',
+//     studentRoll: 1,
+//     studentSubject: 'IT'
+//   }
+console.log(Mostafa.studentSubject); // Output "IT"
