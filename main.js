@@ -1,4 +1,4 @@
-"use strict"; // Strict Mode as like Police for error detection
+"use strict"; // Strict Mode for error detection and code structure
 console.log("Hello BD!");
 
 myName();
@@ -445,3 +445,102 @@ watchMoving(
     console.log(error);
   }
 );
+
+// Transfering callback function into Promise object ==========================
+function watchMovingPromise() {
+  return new Promise((resolve, reject) => {
+    if (userJoin && userWatchingMovie) {
+      resolve({
+        name: "User joined.",
+        message: "Enjoy the movie :(",
+      });
+    } else if (userJoin && !userWatchingMovie) {
+      resolve({
+        name: "User joined.",
+        message: "Just joined now but not watching movie!",
+      });
+    } else {
+      reject("Welcome to our site...");
+    }
+  });
+}
+
+watchMovingPromise()
+  .then((message) => {
+    console.log(message.name + " " + message.message);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+// Async/ Await function with Promise object =========================
+function asyncTask(i) {
+  return new Promise((resolve) => resolve(i + 1));
+}
+async function runAsyncTasks() {
+  const response1 = await asyncTask(0);
+  const response2 = await asyncTask(response1);
+  const response3 = await asyncTask(response2);
+  return "Everything done";
+}
+runAsyncTasks().then((result) => console.log(result)); // "Everything done" returns when every tasks are completed
+
+// Promise without Async ================================
+function runAsyncTasksPromise() {
+  return asyncTask(0)
+    .then((response1) => {
+      return asyncTask(response1);
+    })
+    .then((response2) => {
+      return asyncTask(response2);
+    })
+    .then((response3) => {
+      return asyncTask(response3);
+    })
+    .then((response4) => {
+      return "Everything done asynchronously";
+    });
+}
+
+runAsyncTasksPromise().then((result) => {
+  console.log(result);
+});
+
+// Promise.all() ====================================
+const promiseOne = Promise.resolve(11); // Promise.resolve(value)
+const promiseTwo = new Promise((resolve, reject) => {
+  resolve("Promise two done");
+});
+const promiseThree = 99;
+const promiseFour = new Promise((resolve, reject) => {
+  // One structure for setTimeout ===================
+  //   setTimeout(() => {
+  //     resolve("Promise four done");
+  //   }, 500);
+  // Another structure =========================
+  //   setTimeout(
+  //     () => {
+  //       resolve;
+  //     },
+  //     500,
+  //     "Promise four done"
+  //   );
+  setTimeout(resolve, 500, "Promise four done"); // Single line structure
+});
+
+Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour]).then((values) => {
+  console.log(values);
+});
+
+// Promise.race() ======================
+const promise1 = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 300, "one");
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, "two");
+});
+
+Promise.race([promise1, promise2]).then(function (value) {
+  console.log(value); // Both resolve, but promiseTwo is faster and output is "two"
+});
