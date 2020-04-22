@@ -314,12 +314,86 @@ console.log(total[2][5]); // undefined
 var currencies = ["BDT", "USD", "CAD", "EUR", "JPY"];
 
 var [a, c, , d] = currencies;
-
 console.log(d); // EUR
 
 var [, , c, , e] = currencies;
-
 console.log(c); // CAD
+
+var [a, , c, ...rest] = currencies;
+console.log(rest); // [ 'EUR', 'JPY' ]
+
+var symbols = ["৳", "$", "$", "€", "¥"];
+var newArr = [...currencies, ...symbols];
+// var newArr = currencies.concat(symbols); // Exactly same as newArr
+console.log(newArr);
+// [
+//   'BDT', 'USD', 'CAD',
+//   'EUR', 'JPY', '৳',
+//   '$',   '$',   '€',
+//   '¥'
+// ]
+
+function multiplyAndDivide(a, b) {
+  return [a * b, a / b];
+}
+const array = multiplyAndDivide(10, 5);
+console.log(array); // [ 50, 2 ]
+
+// De-structuring
+const [multiply, divide, addition = "No addition"] = multiplyAndDivide(10, 5);
+console.log(multiply); // 50
+console.log(divide); // 2
+console.log(addition);
+// returns No addition as a default value but if it gets 3rd parameter on return function
+
+// Object de-structuring
+const studentOne = {
+  stdName: "Mostafa",
+  Dept: "IT",
+  ID: 102,
+  Status: "Regular",
+  result: {
+    CSE101: "A",
+    CSE102: "B",
+  },
+};
+
+const studentTwo = {
+  stdName: "Yeasin",
+  Dept: "Business",
+  ID: 101,
+  result: {
+    BBA101: "A+",
+    BBA102: "A",
+  },
+};
+
+const { stdName, ID } = studentOne;
+console.log(stdName); // Mostafa
+console.log(ID); // 102
+
+const {
+  result: { BBA101 },
+  ...restData
+} = studentTwo;
+console.log(BBA101); // A+
+console.log(restData); // { stdName: 'Yeasin', Dept: 'Business', ID: 101 }
+
+// Object data overriding by combining/destructuring two objects
+const studentThree = { ...studentOne, ...studentTwo };
+console.log(studentThree);
+
+// Object de-structuring in function parameter
+function showStudent(data) {
+  console.log(`Name is ${data.stdName}. ID is ${data.ID}`);
+}
+showStudent(studentTwo); // Name is Yeasin. ID is 101
+
+function showStd({ stdName, ID, choice = "Programing" }) {
+  console.log(`Name is ${stdName}. ID is ${ID}. Choice is ${choice}`);
+}
+showStd(studentTwo); // Name is Yeasin. ID is 101. Choice is Programing
+// If choice property is in the object, returns the value from the object. If not, returns value from function parameter
 
 // Array filter()
 const items = [
