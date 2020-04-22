@@ -317,7 +317,85 @@ var [, , c, , e] = currencies;
 
 console.log(c); // CAD
 
-// ES6 Map (group of data)============================
+// Array filter()
+const items = [
+  { name: "PC", price: 30000 },
+  { name: "TV", price: 7000 },
+  { name: "AC", price: 45000 },
+  { name: "Mobile", price: 5500 },
+  { name: "iPod", price: 25000 },
+];
+
+const filteredItems = items.filter((items) => {
+  return items.price <= 10000;
+});
+
+console.log(filteredItems); // [ { name: 'TV', price: 7000 }, { name: 'Mobile', price: 5500 } ]
+
+const lengthItems = items.filter((items) => {
+  return items.name.length > 3;
+});
+console.log(lengthItems); // [ { name: 'Mobile', price: 5500 }, { name: 'iPod', price: 25000 } ]
+
+// Array map()
+const itemNames = items.map((items) => {
+  return items.name;
+});
+console.log(itemNames); // [ 'PC', 'TV', 'AC', 'Mobile', 'iPod' ]
+
+// Array find()
+const foundItem = items.find((items) => {
+  return items.name === "PC";
+});
+console.log(foundItem); // { name: 'PC', price: 30000 }
+
+// Array forEach()
+items.forEach((items) => {
+  console.log(`${items.name} : ${items.price}`);
+});
+
+// Array .some()
+const itemsFree = () => {
+  items.price = 0;
+};
+console.log(items.some(itemsFree)); // returns false as boolean
+
+// This should be fixed==================
+// const itemMatched = () => {
+//   items.name === "TV";
+// };
+// console.log(items.some(itemMatched));
+
+// Array .every()
+const itemsAllLessPrice = () => {
+  items.price <= 10000;
+};
+console.log(items.every(itemsAllLessPrice));
+// returns false as boolean because all items are not under condition
+
+// Array reduce()
+const itemReducer = items.reduce((accumulator, items) => {
+  return items.price + accumulator;
+}, 0);
+// 30000 + 7000 + 45000 + 5500 + 25000
+console.log(itemReducer); // 112500
+
+const arraySum = [1, 2, 3, 4, 5];
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+// 1 + 2 + 3 + 4 + 5
+console.log(arraySum.reduce(reducer)); // 15
+
+// 5 + 1 + 2 + 3 + 4 + 5
+console.log(arraySum.reduce(reducer, 5)); // 20
+
+// Array include() determines whether an array includes a certain value or not
+console.log(items.includes("TV"));
+
+const arrInclude = arraySum.includes(7);
+console.log(arrInclude); // returns false as boolean
+
+// ES6 Map (group of data)========================================
 var map = new Map();
 
 map.set("country", "BD");
