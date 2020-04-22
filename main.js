@@ -416,3 +416,32 @@ learnJS
   .finally(() => {
     startLearn(); // finally() executes whether the promise is fulfilled or rejected
   });
+
+// Callback, errorCallback functions ====================================
+const userJoin = true;
+const userWatchingMovie = true;
+
+function watchMoving(callback, errorCallback) {
+  if (userJoin && userWatchingMovie) {
+    callback({
+      name: "User joined.",
+      message: "Enjoy the movie :(",
+    });
+  } else if (userJoin && !userWatchingMovie) {
+    callback({
+      name: "User joined.",
+      message: "Just joined now but not watching movie!",
+    });
+  } else {
+    errorCallback("Welcome to our site...");
+  }
+}
+
+watchMoving(
+  (message) => {
+    console.log(message.name + " " + message.message);
+  },
+  (error) => {
+    console.log(error);
+  }
+);
