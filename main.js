@@ -212,10 +212,14 @@ var anonymousFunc = function () {
 
 console.log(anonymousFunc()); // Mostafa
 
+let functionAnonymous = () => "Hello Mostafa";
+console.log(functionAnonymous()); // Hello Mostafa
+
 // Anonymous function with parameter
 var anonymousFunction = function (x) {
   return x;
 };
+// let anonymousFunction = (x) => {return x;}
 
 console.log(anonymousFunction("Shams")); // Shams
 
