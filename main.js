@@ -416,10 +416,10 @@ const lengthItems = items.filter((items) => {
 console.log(lengthItems); // [ { name: 'Mobile', price: 5500 }, { name: 'iPod', price: 25000 } ]
 
 // Array map()
-const itemNames = items.map((items) => {
-  return items.name;
+const itemsName = items.map((item) => {
+  return item.name;
 });
-console.log(itemNames); // [ 'PC', 'TV', 'AC', 'Mobile', 'iPod' ]
+console.log(itemsName); // [ 'PC', 'TV', 'AC', 'Mobile', 'iPod' ]
 
 // Array find()
 const foundItem = items.find((items) => {
@@ -673,6 +673,7 @@ const promiseFour = new Promise((resolve, reject) => {
   //   setTimeout(() => {
   //     resolve("Promise four done");
   //   }, 500);
+
   // Another structure =========================
   //   setTimeout(
   //     () => {
@@ -681,6 +682,7 @@ const promiseFour = new Promise((resolve, reject) => {
   //     500,
   //     "Promise four done"
   //   );
+
   setTimeout(resolve, 500, "Promise four done"); // Single line structure
 });
 
@@ -700,3 +702,84 @@ const promise2 = new Promise((resolve, reject) => {
 Promise.race([promise1, promise2]).then(function (value) {
   console.log(value); // Both resolve, but promiseTwo is faster and output is "two"
 });
+
+// Simple promise resolve within a given time in the async function
+const timeLimit = (t) => {
+  return new Promise((resolve, reject) => {
+    // setTimeout(() => {
+    //   resolve(`Finished within ${t}`);
+    // }, t);
+
+    setTimeout(resolve, t, `Finished within ${t}`); // Same as above code
+  });
+};
+
+timeLimit(300).then((result) => console.log(result));
+// Finished within 300
+
+Promise.all([timeLimit(100), timeLimit(200), timeLimit(300)]).then((result) =>
+  console.log(result)
+);
+// [ 'Finished within 100', 'Finished within 200', 'Finished within 300' ]
+// The output is consoled as an array only after resolving all the promises chronologically
+
+const timeSlots = [1000, 2000, 3000];
+const promises = [];
+
+// Mapping the timeSlots
+timeSlots.map((duration) => {
+  // Pushing the pending promise to the array promises
+  promises.push(timeLimit(duration));
+});
+
+console.log(promises); // To check the pending status on promises
+// [ Promise { "pending" }, Promise { "pending" }, Promise { "pending" } ]
+
+// Now passing the 'promises' pending array to Promise.all
+Promise.all(promises).then((result) => console.log(result));
+// [
+//   'Finished within 1000',
+//   'Finished within 2000',
+//   'Finished within 3000'
+// ]
+// Promise.all results after all the promises are resolved
+
+// What happens if any of the promises is rejected?!
+const timeEnd = (t) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (t === 1000) {
+        reject(`Rejected in ${t}`);
+      } else {
+        resolve(`Finished in ${t}`);
+      }
+    }, t);
+  });
+};
+
+const tValues = [500, 1000, 1500];
+
+const promisesArray = [];
+
+tValues.map((time) => {
+  promisesArray.push(timeEnd(time));
+});
+
+console.log(promisesArray);
+// (node:8528) UnhandledPromiseRejectionWarning: Rejected in 1000
+// (node:8528) UnhandledPromiseRejectionWarning: Unhandled promise rejection.
+
+// Now passing pending promisesArray to Promise.all
+Promise.all(promisesArray)
+  .then((result) => console.log(result)) // Promise.all not resolved and because of one rejecting, all the rest of the promises fail
+  .catch((err) => console.log(`Error throws in ${err}`)); //Returns "Error throws in Rejected in 1000"
+
+// To handle this error for each promise, have to return catch function inside promiseArr out of Promise.all before passing to it(Promise.all)
+const promiseArr = tValues.map((time) => {
+  return timeEnd(time).catch((err) => err);
+});
+
+Promise.all(promiseArr)
+  .then((result) => console.log(result))
+  .catch((err) => console.log(`Error throws in ${err}`));
+//  [ 'Finished in 500', 'Rejected in 1000', 'Finished in 1500' ]
