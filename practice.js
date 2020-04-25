@@ -308,3 +308,50 @@ do {
   i++;
 } while (i < 5);
 console.log(i, arr); // 11 [10]
+
+// Details Profile Lookups
+var profiles = [
+  {
+    id: "01565423",
+    name: "Mostafa",
+    email: "ms@gm.cm",
+    username: "mostafa.bd",
+    likes: ["movies", "history", "coding"],
+  },
+  {
+    id: "44752121",
+    name: "Sadia",
+    email: "sadia@gm.cm",
+    username: "sadia.bd",
+    likes: ["cooking", "playing", "watching"],
+  },
+  {
+    id: "45654512",
+    name: "Shams",
+    email: "shams@gm.cm",
+    username: "shams.bd",
+    likes: ["playing", "traveling", "sleeping"],
+  },
+];
+
+function detailsProfile(req, property) {
+  for (var i = 0; i < profiles.length; i++) {
+    if (
+      profiles[i].id === req ||
+      profiles[i].name === req ||
+      profiles[i].username === req ||
+      profiles[i].email === req
+    ) {
+      // For lookup property
+      // return profiles[i][property] || "No such property"; // || executes when there is no property
+
+      // lookup full details
+      return profiles[i];
+    }
+  }
+  return "Not found";
+}
+
+var data = detailsProfile("mostafa.bd");
+
+console.log(data);
