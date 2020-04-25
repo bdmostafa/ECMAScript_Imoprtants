@@ -126,8 +126,8 @@ console.log(objTest("hello")); // false
 console.log(objTest("name")); // Shams
 
 // Manipulating Complex Objects
-// {} - object = {property:value}
-// [] - object = [{property: [val1, val2, val3]}, {property: value}]
+// {} - object = {property:value, property:value}
+// [] - object = [{property: [val1, val2, val3]}, {property: value, property:value}]
 var myPC = [
   {
     type: "PC",
@@ -148,7 +148,57 @@ var myPC = [
   },
 ];
 
-console.log(myPC[0].drives.c); // local
 console.log(myPC[1].accessories); // [ 'keyboard', 'wifi' ]
 
-// Accessing nested objects
+// Accessing nested objects by . & []
+console.log(myPC[0].drives.c); // local
+console.log(myPC[0].drives["c"]); // local
+
+// Accessing nested arrays
+console.log(myPC[0].accessories[1]); // 123
+
+// Record / Update collection using JSON parse ======================
+var collections = {
+  101: {
+    name: "Mostafa",
+    degree: "MBA",
+    hobbies: ["travel", "reading", "coding"],
+  },
+  102: {
+    name: "Ahmed",
+    degree: "Law",
+    hobbies: ["job", "Movies", "playing"],
+  },
+  103: {
+    name: "Yeasin",
+    degree: "MSC",
+    hobbies: ["business", "noble", "programming"],
+  },
+  104: {
+    name: "Shams",
+    degree: "LLM",
+    hobbies: ["kk", "kjk"],
+  },
+};
+
+console.log(collections["102"].name); // Ahmed
+// Copy from object collection
+var collectionsCopy = JSON.parse(JSON.stringify(collections));
+
+console.log(collectionsCopy["102"]); // { name: 'Ahmed', degree: 'Law', hobbies: [ 'job', 'Movies', 'playing' ] }
+
+console.log(collectionsCopy["103"]["degree"]); // MSC
+console.log(collectionsCopy["103"].degree); // MSC
+
+function updateCollection(id, property, value) {
+  // Delete the property if not value exists
+  if (value === "") {
+    delete collections[id][property];
+  } else {
+    collections[id][property] = value;
+  }
+
+  return collections;
+}
+
+console.log(updateCollection(103, "degree", "MBA"));
