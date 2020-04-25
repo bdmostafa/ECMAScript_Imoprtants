@@ -1,3 +1,4 @@
+"use strict";
 // Returning Early Pattern from Functions
 function xyTest(x, y) {
   if (x < 0 || y < 0) {
@@ -355,3 +356,53 @@ function detailsProfile(req, property) {
 var data = detailsProfile("mostafa.bd");
 
 console.log(data);
+
+// Random fraction function
+function randomFraction() {
+  return Math.random(); // Less than 1
+}
+console.log(randomFraction());
+
+// Generate Random wholeNumbers
+var randomWholeNumber = Math.floor(Math.random() * 20);
+console.log(randomWholeNumber); // Less than 20 but whole number
+
+// Generate Random wholeNumbers within a Range
+function randomRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(randomRange(5, 10)); // 5 - 10
+
+// parseInt Function
+function toString(str) {
+  return parseInt(str);
+}
+console.log(toString("10"));
+
+function toInteger(str) {
+  // return parseInt(str, 2); // Base 2
+  return parseInt(str, 16); // Base 16
+}
+console.log(toInteger("F")); // 15
+
+// Multiple Ternary Operators
+function compareFunc(a, b, c) {
+  var result =
+    a > b && a > c
+      ? "A is big"
+      : b > a && b > c
+      ? "B is big"
+      : c > a && c > b
+      ? "C is Big"
+      : "Press another unique numbers";
+  return result;
+}
+console.log(
+  compareFunc(
+    0.000000000000000000000000000000000000000000000000000003,
+    0.0000000000000000000000000000000000000000000000002,
+    0.00000000000000000001
+  )
+); // C is Big
+
+// const - read-only variable
