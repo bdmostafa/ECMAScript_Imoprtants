@@ -194,6 +194,9 @@ function updateCollection(id, property, value) {
   // Delete the property if not value exists
   if (value === "") {
     delete collections[id][property];
+  } else if (property === "degree") {
+    collections[id][property] = collections[id][property] || [];
+    collections[id][property].push(value); // .push is not a function (error)
   } else {
     collections[id][property] = value;
   }
