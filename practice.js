@@ -253,7 +253,7 @@ Before:
     degree: ["LLM"],
     hobbies: ["playing"],
   },
-  
+
 After:
 '104': {
     name: 'Shams',
@@ -262,4 +262,49 @@ After:
   }
 */
 
-// Iterate with While Loops
+// Iterate through an Array with For Loops
+var arr = [1, 2, 3, 4, 5];
+var arrTotal = 0;
+
+for (var i = 0; i < arr.length; i++) {
+  arrTotal += arr[i];
+}
+
+console.log(arrTotal); // 15
+
+// Nested array / Multidimensional array
+function addAll(arr) {
+  var addition = 0;
+
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr[i].length; j++) {
+      addition += arr[i][j];
+    }
+  }
+  return addition;
+}
+
+var addition = addAll([
+  [1, 2],
+  [3, 4],
+  [5, 6],
+]);
+console.log(addition); // 21
+
+// Difference between while and do...while
+// Iterate with while
+var arr = [];
+var i = 10;
+
+while (i < 5) {
+  arr.push(i);
+  i++;
+}
+console.log(i, arr); // 10, []
+
+// Iterate with Do...While Loop
+do {
+  arr.push(i);
+  i++;
+} while (i < 5);
+console.log(i, arr); // 11 [10]
