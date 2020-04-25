@@ -161,31 +161,32 @@ console.log(myPC[0].accessories[1]); // 123
 var collections = {
   101: {
     name: "Mostafa",
-    degree: "MBA",
+    degree: ["BBA", "MIT"],
     hobbies: ["travel", "reading", "coding"],
   },
   102: {
     name: "Ahmed",
-    degree: "Law",
+    degree: ["Law", "MSC"],
     hobbies: ["job", "Movies", "playing"],
   },
   103: {
     name: "Yeasin",
-    degree: "MSC",
+    degree: ["MSC"],
     hobbies: ["business", "noble", "programming"],
   },
   104: {
     name: "Shams",
-    degree: "LLM",
-    hobbies: ["kk", "kjk"],
+    degree: ["LLM"],
+    hobbies: ["playing"],
   },
 };
 
+// Various ways to access object properties
 console.log(collections["102"].name); // Ahmed
 // Copy from object collection
 var collectionsCopy = JSON.parse(JSON.stringify(collections));
 
-console.log(collectionsCopy["102"]); // { name: 'Ahmed', degree: 'Law', hobbies: [ 'job', 'Movies', 'playing' ] }
+console.log(collectionsCopy["102"]); // { name: 'Ahmed', degree: ['Law', 'MSC'], hobbies: [ 'job', 'Movies', 'playing' ] }
 
 console.log(collectionsCopy["103"]["degree"]); // MSC
 console.log(collectionsCopy["103"].degree); // MSC
@@ -195,8 +196,13 @@ function updateCollection(id, property, value) {
   if (value === "") {
     delete collections[id][property];
   } else if (property === "degree") {
+    // 'degree' is an array preperty because if not an array, error shows like this '.push is not a function'
     collections[id][property] = collections[id][property] || [];
-    collections[id][property].push(value); // .push is not a function (error)
+    collections[id][property].push(value);
+  } else if (property === "hobbies") {
+    // 'hobbies' is an array preperty because if not an array, error shows like this '.push is not a function'
+    collections[id][property] = collections[id][property] || [];
+    collections[id][property].push(value);
   } else {
     collections[id][property] = value;
   }
@@ -204,4 +210,56 @@ function updateCollection(id, property, value) {
   return collections;
 }
 
-console.log(updateCollection(103, "degree", "MBA"));
+console.log(updateCollection(102, "degree", "MBA"));
+/*
+   Before:
+    102: {
+        name: "Ahmed",
+        degree: ["Law", "MSC"],
+        hobbies: ["job", "Movies", "playing"],
+    },
+
+    After:
+    '102': {
+        name: 'Ahmed',
+        degree: [ 'Law', 'MSC', 'MBA' ],
+        hobbies: [ 'job', 'Movies', 'playing' ]
+    },
+*/
+
+console.log(updateCollection(103, "business", true));
+/*
+Before:
+102: {
+    name: "Ahmed",
+    degree: ["Law", "MSC"],
+    hobbies: ["job", "Movies", "playing"],
+  },
+
+After:
+'103': {
+    name: 'Yeasin',
+    degree: [ 'MSC' ],
+    hobbies: [ 'business', 'noble', 'programming' ],
+    business: true
+  },
+*/
+
+console.log(updateCollection(104, "hobbies", "reading"));
+/*
+Before:
+104: {
+    name: "Shams",
+    degree: ["LLM"],
+    hobbies: ["playing"],
+  },
+  
+After:
+'104': {
+    name: 'Shams',
+    degree: [ 'LLM' ],
+    hobbies: [ 'playing', 'reading' ]
+  }
+*/
+
+// Iterate with While Loops
