@@ -654,3 +654,28 @@ const half = ({
 
 console.log(tradeStats);
 console.log(half(tradeStats))
+
+// Create String using Template Literals
+const msg = {
+  success: ["max-width", "bg-grey", "congratulations-msg"],
+  failure: ["notification-bar", "linebreak", "alert-msg"],
+  hidden: ["hidden-list", "hidden-keys"]
+}
+
+function msgList(arr) {
+  const showListsArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    showListsArr.push(`<li class="text-worning">${arr[i]}</li>`)
+  }
+
+  return showListsArr;
+}
+
+console.log(msgList(msg.failure));
+/*
+[
+  '<li class="text-worning">notification-bar</li>',
+  '<li class="text-worning">linebreak</li>',
+  '<li class="text-worning">alert-msg</li>'
+]
+ */
