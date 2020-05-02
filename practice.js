@@ -510,3 +510,147 @@ var achievers = Students.find(Student => Student.prizesWon == 3);
 
 // Display only first Student who won four prizes 
 console.log(achievers); // { rollNo: 1, name: 'Alpha', prizesWon: 3 }
+
+// Spread Operator to evaluate Arrays In-place
+const weekDays = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+let weekArray;
+
+(function () {
+  weekArray = weekDays; // [ '1st Day', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ]
+  weekArray = [...weekDays]; // ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+  weekDays[0] = '1st Day';
+})()
+
+console.log(weekArray)
+
+// Destructing Assignments to Assign Varialbes from Objects
+// Destructuring - Example 1
+const user = {
+  name: 'Mostafa',
+  age: 29
+}
+
+// const userName = user.name;
+// const userAge = user.age;
+
+// Destructuring
+const {
+  name: userName,
+  age: userAge
+} = user
+
+console.log(userName) // Mostafa
+
+// Destructuring - Example 2
+var xyzToAbc = {
+  x: 1.2,
+  y: 7.5,
+  z: 0.9
+}
+
+// var x = xyzToAbc.x  // 1.2
+// var y = xyzToAbc.y  // 7.5
+// var z = xyzToAbc.z  // 0.9
+
+// Destructuring
+const {
+  x: a,
+  y: b,
+  z: c
+} = xyzToAbc
+
+console.log(a, b, c) // 1.2 7.5 0.9
+
+// Destructuring inside the function - Example 3
+const TEMP = {
+  yesterday: 65.9,
+  today: 71.5
+}
+
+function getTempToday(temp) {
+  // Destructuring through parameter
+  const {
+    today: tempOfToday
+  } = temp
+
+  return tempOfToday
+}
+
+console.log(getTempToday(TEMP)) // 71.5
+
+// Destructuring with Nested Objects - Example 4
+const TEMP_MIN_MAX = {
+  yesterday: {
+    min: 80.3,
+    max: 81.5
+  },
+  today: {
+    min: 75.9,
+    max: 79.5
+  }
+}
+
+function getMaxOfYesterday(temp) {
+  // Destructuring with nested
+  const {
+    yesterday: {
+      max: maxOfYesterday
+    }
+  } = temp
+
+  return maxOfYesterday
+}
+
+console.log(getMaxOfYesterday(TEMP_MIN_MAX)) // 81.5
+
+// Destructuring to Assign Variables from Arrays - Example 5
+var [x, y, , z] = [1, 2, 3, 4, 5, 6, 7]
+console.log(x, y, z) // 1 2 4
+
+var x = 1,
+  y = 3,
+  z = 5;
+
+(() => {
+  [x, y, z] = [z, y, x]
+})();
+
+console.log(x, y, z) // 5 3 1
+
+// Destructuring with Rest Operator - Example 6
+const totalList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+function removeFirstTwo(list) {
+  // destructuring
+  const [, , ...arr] = list;
+
+  return arr;
+}
+
+console.log(removeFirstTwo(totalList))
+console.log(totalList)
+
+// Desrcuturing to Pass an Object as Parameters - Example 7
+// Best usages when API calls
+const tradeStats = {
+  min: 29.5,
+  avg: 45.73,
+  median: 37.78,
+  mode: 31.3,
+  max: 53.12
+};
+
+// const half = (args) => {
+//   return (tradeStats.min + tradeStats.max) / 2;  // 41.31
+// }
+
+// Destructuring (max, min)
+const half = ({
+  max,
+  min
+}) => {
+  return (max + min) / 2; // 41.31
+}
+
+console.log(tradeStats);
+console.log(half(tradeStats))
