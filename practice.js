@@ -129,8 +129,7 @@ console.log(objTest("name")); // Shams
 // Manipulating Complex Objects
 // {} - object = {property:value, property:value}
 // [] - object = [{property: [val1, val2, val3]}, {property: value, property:value}]
-var myPC = [
-  {
+var myPC = [{
     type: "PC",
     model: "core i3",
     accessories: ["speaker", 123, "mouce"],
@@ -311,8 +310,7 @@ do {
 console.log(i, arr); // 11 [10]
 
 // Details Profile Lookups
-var profiles = [
-  {
+var profiles = [{
     id: "01565423",
     name: "Mostafa",
     email: "ms@gm.cm",
@@ -359,7 +357,7 @@ console.log(data);
 
 // Random fraction function
 function randomFraction() {
-  return Math.random(); // Less than 1
+  return Math.random(); // Between 0 and 1
 }
 console.log(randomFraction());
 
@@ -388,13 +386,13 @@ console.log(toInteger("F")); // 15
 // Multiple Ternary Operators
 function compareFunc(a, b, c) {
   var result =
-    a > b && a > c
-      ? "A is big"
-      : b > a && b > c
-      ? "B is big"
-      : c > a && c > b
-      ? "C is Big"
-      : "Press another unique numbers";
+    a > b && a > c ?
+    "A is big" :
+    b > a && b > c ?
+    "B is big" :
+    c > a && c > b ?
+    "C is Big" :
+    "Press another unique numbers";
   return result;
 }
 console.log(
@@ -405,4 +403,110 @@ console.log(
   )
 ); // C is Big
 
-// const - read-only variable
+// const - read-only variable, can't be reassigned
+// Mutate/Change an Array declared with const
+const s = [9, 8, 7];
+
+function editConstArr() {
+  // s = [7, 8, 9]; // Can't be reassigned
+  s[0] = 7;
+  s[1] = 8;
+  s[2] = 9;
+}
+editConstArr();
+console.log(s);
+
+// Prevent Object Data Mutation - (object.freeze())
+function object() {
+  const CONSTANT_PI = {
+    PI: 3.14159265359,
+  };
+
+  // Object.freeze() method freezes an object
+  Object.freeze(CONSTANT_PI);
+
+  try {
+    CONSTANT_PI.PI = 1111;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return CONSTANT_PI.PI;
+}
+
+const PI = object();
+console.log(PI); // Show TypeError:...........
+
+// Anonymous Function
+const concatFunc = (arrOne, arrTwo) => arrOne.concat(arrTwo);
+
+console.log(concatFunc([1, 2, 3], [4, 5, 6, 7]));
+/*
+[
+  1, 2, 3, 4,
+  5, 6, 7
+]
+ */
+
+// Higher-Order Arrow function (map, filter, reduce, find)
+const realNumArr = [2, -7, 7, 4.3, 1, 5.9, 9, -42, 11];
+
+const makeSquare = (arr) => {
+  // Higher-Order (filter, map)
+  const intSquare = arr.filter((x) => Number.isInteger(x) && x > 0).map((x) => x * x);
+  return intSquare;
+};
+
+const listIntWithSquare = makeSquare(realNumArr);
+console.log(listIntWithSquare); // [ 4, 49, 1, 81, 121 ]
+
+// Parameter value initialization
+
+// const addFunction = (function () {
+//   return function addFunction(num, val = 3) {
+//     return num + val;
+//   };
+// })();
+
+const addFunction = (num, val = 3) => {
+  return num + val;
+};
+
+console.log(addFunction(5, 2)); // 7
+console.log(addFunction(5)); // 8
+
+// Rest operator with Function Parameter (High-order - reduce())
+const sum = (x, y, z) => {
+  const args = [x, y, z];
+  return args.reduce((a, b) => a + b, 0);
+};
+console.log(sum(5, 6, 7)); // 18 (5 + 6 + 7)
+
+// Using Rest...
+const product = (...rest) => {
+  return rest.reduce((a, b) => a * b, 2);
+};
+console.log(product(1, 2, 3, 4)); // 48 (2 * 1 * 2 * 3 *4)
+
+// Higher-Order (find) with Anonymous
+var Students = [{
+    rollNo: 1,
+    name: 'Alpha',
+    prizesWon: 3
+  },
+  {
+    rollNo: 2,
+    name: 'Beta',
+    prizesWon: 2
+  },
+  {
+    rollNo: 3,
+    name: 'Gamma',
+    prizesWon: 3
+  }
+];
+
+var achievers = Students.find(Student => Student.prizesWon == 3);
+
+// Display only first Student who won four prizes 
+console.log(achievers); // { rollNo: 1, name: 'Alpha', prizesWon: 3 }
