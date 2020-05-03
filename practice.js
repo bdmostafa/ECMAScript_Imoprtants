@@ -679,3 +679,121 @@ console.log(msgList(msg.failure));
   '<li class="text-worning">alert-msg</li>'
 ]
  */
+
+// Write Concise Object Literal Declarations using Simple Fields
+const createStudent = (id, name, sub) => {
+  return {
+    id: id,
+    name: name,
+    subject: sub
+  }
+}
+
+console.log(createStudent(1, "Mostafa", "IT"))
+// { id: 1, name: 'Mostafa', subject: 'IT' }
+
+const createStd = (id, name, subject) => ({
+  // These would be property name
+  id,
+  name,
+  subject
+})
+
+console.log(createStudent(2, "Mahmud", "Finance"))
+// { id: 2, name: 'Mahmud', subject: 'Finance' }
+
+// Write Concise Declarative Functions
+const eurUsd = {
+  price: 1.2934,
+
+  // livePrice: function (newPrice) {
+  //   this.price = newPrice;
+  // }
+
+  livePrice(newPrice) {
+    this.price = newPrice;
+  }
+}
+
+eurUsd.livePrice(1.1587);
+console.log(eurUsd.price); // 1.1587
+
+// Class Syntax - Defining/replacing a Constructor Function
+
+// var stdName = function (name) {
+//   this.name = name;
+// }
+
+// console.log(Shams.name) // Safwaan Shams
+
+// Example 1
+class stdName {
+  constructor(name, stats, nationalIdentity) {
+    this.name = name;
+    this.status = stats,
+      this.nationality = nationalIdentity
+  }
+}
+
+var Shams = new stdName("Safwaan Shams", "Excellent", "Bangladeshi");
+console.log(Shams)
+/*
+ stdName {
+  name: 'Safwaan Shams',
+  status: 'Excellent',
+  nationality: 'Bangladeshi'
+}
+*/
+console.log(Shams.name) // Safwaan Shams
+
+// Example 2 (class inside a function)
+function makeClassCustomer() {
+  class Customer {
+    constructor(id, name) {
+      this.id = id,
+        this.name = name
+    }
+  }
+  return Customer;
+}
+
+const Customer = makeClassCustomer();
+const mostafa = new Customer(111, "Mostafa");
+console.log(mostafa.name);
+
+// Using getters and setters to control access to an object
+/*
+It gives simpler syntax
+It allows equal syntax for properties and methods
+It can secure better data quality
+It is useful for doing things behind-the-scenes
+*/
+function makeClassTemp() {
+  class getFahrenheit {
+    constructor(celcius) {
+      this._fahrenheit = (celcius * 9 / 5) + 32;
+    }
+
+    // Data store in fahrenheit using getters
+    get fahrenheit() {
+      return this._fahrenheit;
+    }
+
+    // Data updating using setters
+    set fahrenheit(updatedCelcius) {
+      return this._fahrenheit = updatedCelcius;
+    }
+  }
+  return getFahrenheit;
+}
+
+const GetFahrenheit = makeClassTemp();
+const celcius = new GetFahrenheit(27);
+let fahrenheit = celcius.fahrenheit;
+// No need to use '()' after 'fahrenheit' since it is considered as a property
+console.log(fahrenheit); // 80.6
+
+// Updating by setters
+celcius.fahrenheit = 35; // Passing through 'updatedCelcius' parameter
+fahrenheit = celcius.fahrenheit;
+console.log(fahrenheit); // 35
