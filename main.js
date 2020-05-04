@@ -938,7 +938,6 @@ try {
   if (!userJson.id) {
     throw new SyntaxError("ID not found");
   }
-
   console.log(userJson);
 
 } catch (e) {
@@ -954,3 +953,43 @@ try {
   console.log("JSON Error: " + e);
   // JSON Error: SyntaxError: ID not found
 }
+
+// Immediately Invoked Function Expression (IIFE) =======================
+
+(function () {
+  console.log("My favorite number is 1");
+})();
+// My favorite number is 1
+
+var favNumber = (function (num = 3) {
+  console.log("My favorite number is " + num);
+})();
+// My favorite number is 3
+// Always returns parameter's fixed value
+
+var favNumber = (function (num = 3) {
+  console.log("My favorite number is " + num);
+})(7);
+// My favorite number is 7
+// Returns new value through parameter although 3 is initialized
+
+var a = 1;
+
+(function () {
+  var a = 2;
+  console.log(a); // 2
+  // It can not be accessed outside the function
+})();
+
+console.log(a);
+// Output is 1 because ES6 Anonymous functions are considered as local varialbes
+
+// No need always immediately invoked function expressions in ES6
+let b = 1;
+
+{
+  let b = 2;
+  console.log(b); // 2
+}
+
+console.log(b); // 1
