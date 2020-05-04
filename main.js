@@ -88,6 +88,7 @@ myFuncForLocalVar();
 
 // Variable Scope (global)
 var globalName = "ECMAScript6";
+
 function myFunction() {
   console.log(globalName);
 }
@@ -140,7 +141,12 @@ console.log(`Values are ${myComputer["monitor"]} and ${myComputer["motherboard"]
 console.log(myComputerPro["monitor"]["size"]); // Output "22inch"
 
 // for...in loop ===================================
-var myPC = { monitor: true, speaker: false, CPU_box: "black", motherboard: "Gigabyte" };
+var myPC = {
+  monitor: true,
+  speaker: false,
+  CPU_box: "black",
+  motherboard: "Gigabyte"
+};
 
 for (let props in myPC) {
   console.log(props); // property name only
@@ -368,19 +374,27 @@ const studentTwo = {
   },
 };
 
-const { stdName, ID } = studentOne;
+const {
+  stdName,
+  ID
+} = studentOne;
 console.log(stdName); // Mostafa
 console.log(ID); // 102
 
 const {
-  result: { BBA101 },
+  result: {
+    BBA101
+  },
   ...restData
 } = studentTwo;
 console.log(BBA101); // A+
 console.log(restData); // { stdName: 'Yeasin', Dept: 'Business', ID: 101 }
 
 // Object data overriding by combining/destructuring two objects
-const studentThree = { ...studentOne, ...studentTwo };
+const studentThree = {
+  ...studentOne,
+  ...studentTwo
+};
 console.log(studentThree);
 
 // Object de-structuring in function parameter
@@ -389,19 +403,37 @@ function showStudent(data) {
 }
 showStudent(studentTwo); // Name is Yeasin. ID is 101
 
-function showStd({ stdName, ID, choice = "Programing" }) {
+function showStd({
+  stdName,
+  ID,
+  choice = "Programing"
+}) {
   console.log(`Name is ${stdName}. ID is ${ID}. Choice is ${choice}`);
 }
 showStd(studentTwo); // Name is Yeasin. ID is 101. Choice is Programing
 // If choice property is in the object, returns the value from the object. If not, returns value from function parameter
 
 // Array filter()
-const items = [
-  { name: "PC", price: 30000 },
-  { name: "TV", price: 7000 },
-  { name: "AC", price: 45000 },
-  { name: "Mobile", price: 5500 },
-  { name: "iPod", price: 25000 },
+const items = [{
+    name: "PC",
+    price: 30000
+  },
+  {
+    name: "TV",
+    price: 7000
+  },
+  {
+    name: "AC",
+    price: 45000
+  },
+  {
+    name: "Mobile",
+    price: 5500
+  },
+  {
+    name: "iPod",
+    price: 25000
+  },
 ];
 
 const filteredItems = items.filter((items) => {
@@ -783,3 +815,70 @@ Promise.all(promiseArr)
   .then((result) => console.log(result))
   .catch((err) => console.log(`Error throws in ${err}`));
 //  [ 'Finished in 500', 'Rejected in 1000', 'Finished in 1500' ]
+
+// try{}, catch{}, finally{}, throw - Error Handling ======================
+try {
+  console.log("try starting...");
+
+  funcTry; // funcTry is not defined
+
+  console.log("try ended."); // It is never reached
+} catch (err) {
+  console.log("Error found: " + err.stack); // .stack is used to find the error details
+} finally {
+  console.log("finally always runs...")
+}
+console.log("This is out of tray, catch, finally and continue next...")
+/*
+try starting...
+Error found: ReferenceError: funcTry is not defined
+    at Object.<anonymous> (E:\JavaScript\ES6\main.js:823:3)
+    at Module._compile (internal/modules/cjs/loader.js:1158:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
+    at Module.load (internal/modules/cjs/loader.js:1002:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:901:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)
+    at internal/main/run_main_module.js:18:47
+finally always runs...
+This is out of tray, catch, finally and continue next...
+*/
+
+// throw statement ===============
+// Example 1
+function getRectArea(width, height) {
+  if (isNaN(width) || isNaN(height)) { // isNaN - is Not a Number
+    throw "Parameter is not a number!";
+  }
+}
+
+try {
+  getRectArea(3, 'A');
+} catch (e) {
+  console.error(e);
+  // Parameter is not a number!
+}
+
+// Example 2
+let jsonData = '{"name": "Mostafa", "age": 29, "gender": "male"}';
+
+try {
+  let userJson = JSON.parse(jsonData);
+  if (!userJson.id) {
+    throw new SyntaxError("ID not found");
+  }
+
+  console.log(userJson);
+
+} catch (e) {
+  console.log("JSON Error: " + e.message);
+  // JSON Error: ID not found
+
+  console.log("JSON Error: " + e.id);
+  // JSON Error: undefined
+
+  console.log("JSON Error: " + e.name);
+  // JSON Error: SyntaxError
+
+  console.log("JSON Error: " + e);
+  // JSON Error: SyntaxError: ID not found
+}
