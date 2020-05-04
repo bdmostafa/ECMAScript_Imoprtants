@@ -436,16 +436,23 @@ const items = [{
   },
 ];
 
-const filteredItems = items.filter((items) => {
-  return items.price <= 10000;
+const filteredItems = items.filter((item) => {
+  return item.price <= 10000;
 });
 
 console.log(filteredItems); // [ { name: 'TV', price: 7000 }, { name: 'Mobile', price: 5500 } ]
 
-const lengthItems = items.filter((items) => {
-  return items.name.length > 3;
+const lengthItems = items.filter((item) => {
+  return item.name.length > 3;
 });
 console.log(lengthItems); // [ { name: 'Mobile', price: 5500 }, { name: 'iPod', price: 25000 } ]
+
+// Another example of filter()
+const ints = [5, 7, 12];
+const odds = ints.filter((num) => {
+  return num % 2 !== 0;
+})
+console.log(odds); // [ 5, 7 ]
 
 // Array map()
 const itemsName = items.map((item) => {
@@ -453,16 +460,44 @@ const itemsName = items.map((item) => {
 });
 console.log(itemsName); // [ 'PC', 'TV', 'AC', 'Mobile', 'iPod' ]
 
+const numbers = [10, 20, 30];
+const squareNum = numbers.map((item) => {
+  return item * item;
+})
+console.log(squareNum); // [ 100, 400, 900 ]
+
 // Array find()
-const foundItem = items.find((items) => {
-  return items.name === "PC";
+const foundItem = items.find((item) => {
+  return item.name === "PC";
 });
 console.log(foundItem); // { name: 'PC', price: 30000 }
+
+// Array findIndex()
+const foundIndex = items.findIndex((item) => {
+  return item.name === "AC";
+});
+console.log(foundIndex); // 2
 
 // Array forEach()
 items.forEach((items) => {
   console.log(`${items.name} : ${items.price}`);
 });
+/*
+PC : 30000
+TV : 7000
+AC : 45000
+Mobile : 5500
+iPod : 25000
+*/
+
+[1, 2, 3].forEach((item, index) => {
+  console.log(item, index);
+})
+/*
+1 0
+2 1
+3 2
+*/
 
 // Array .some()
 const itemsFree = () => {
@@ -476,6 +511,12 @@ console.log(items.some(itemsFree)); // returns false as boolean
 // };
 // console.log(items.some(itemMatched));
 
+// Another example - some()
+const hasNegativeNumbers = [4, 7, -9, 0, 99, 51, -11].some((num) => {
+  return num < 0
+});
+console.log(hasNegativeNumbers); // true
+
 // Array .every()
 const itemsAllLessPrice = () => {
   items.price <= 10000;
@@ -483,11 +524,16 @@ const itemsAllLessPrice = () => {
 console.log(items.every(itemsAllLessPrice));
 // returns false as boolean because all items are not under condition
 
+const allPositiveNumbers = [4, 7, -9, 0, 99, 51, -11].every((num) => {
+  return num < 0
+});
+console.log(allPositiveNumbers); // false
+
 // Array reduce()
 const itemReducer = items.reduce((accumulator, items) => {
   return items.price + accumulator;
 }, 0);
-// 30000 + 7000 + 45000 + 5500 + 25000
+// 0 + 30000 + 7000 + 45000 + 5500 + 25000
 console.log(itemReducer); // 112500
 
 const arraySum = [1, 2, 3, 4, 5];
@@ -499,8 +545,14 @@ console.log(arraySum.reduce(reducer)); // 15
 // 5 + 1 + 2 + 3 + 4 + 5
 console.log(arraySum.reduce(reducer, 5)); // 20
 
+// Or use in a single line
+const arrSum = [1, 2, 3, 4, 5].reduce((result, item) => {
+  return result + item;
+}, 5);
+console.log(arrSum); // 20
+
 // Array include() determines whether an array includes a certain value or not
-console.log(items.includes("TV"));
+console.log(items.includes("TV")); // returns false as boolean
 
 const arrInclude = arraySum.includes(7);
 console.log(arrInclude); // returns false as boolean
@@ -521,12 +573,26 @@ console.log(map.values()); // [Map Iterator] { 'BD', 'BDT', 'developing', 'mid-l
 for (let value of map.values()) {
   console.log(value);
 }
+/*
+BD
+BDT
+developing
+mid-level
+8+
+*/
 
 for (let key of map.keys()) {
   console.log(key);
 }
+/*
+country
+currency
+status
+education
+GDP
+*/
 
-// ES6 Map (delete/get/clear/has)
+// ES6 Map (delete/get/clear/has) ==================
 // delete(key)
 // get(key)
 // has(key)
@@ -536,6 +602,12 @@ map.delete("GDP");
 for (let value of map.values()) {
   console.log(value);
 }
+/*
+BD
+BDT
+developing
+mid-level
+*/
 
 console.log(map.get("country")); // BD
 
