@@ -1,4 +1,4 @@
-// Stacks- push, pop, peek, length
+// Stacks- push, pop, peek, length ============================
 
 // Palindrome check
 var stringArr = []; // stack
@@ -55,3 +55,51 @@ const isPalindrome = (inString) => {
 
 console.log(isPalindrome(string));
 // ididdidi is a palindrome.
+
+// Create a stack and check by push, pop, peek =====================
+var Stack = function () {
+    this.count = 0;
+    this.storage = {};
+
+    // Adds a value onto the end of the stack
+    this.push = (val) => {
+        this.storage[this.count] = val;
+        this.count++;
+    }
+
+    // Removes and returns the value at the end of stack
+    this.pop = () => {
+        if (this.count === 0) {
+            return undefined;
+        }
+
+        this.count--;
+        var showStorage = this.storage[this.count];
+        delete this.storage[this.count];
+        return showStorage;
+    }
+
+    this.size = () => {
+        return this.count;
+    }
+
+    // Returns the value at the end of the stack
+    this.peek = () => {
+        return this.storage[this.count - 1];
+        // '-1' because 'this.push' has 'count++' after assigning value
+    }
+}
+
+var myStack = new Stack();
+
+myStack.push(10);
+myStack.push(20);
+console.log(myStack.peek()); // 20
+console.log(myStack.pop()); // 20
+console.log(myStack.peek()); // 10
+console.log(myStack.size()); // 1
+myStack.push("Mostafa");
+console.log(myStack.size()); // 2
+console.log(myStack.peek()); // Mostafa
+console.log(myStack.pop()); // Mostafa
+console.log(myStack.peek()); // 10
