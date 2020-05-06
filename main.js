@@ -145,7 +145,7 @@ var myPC = {
   monitor: true,
   speaker: false,
   CPU_box: "black",
-  motherboard: "Gigabyte"
+  motherboard: "Gigabyte",
 };
 
 for (let props in myPC) {
@@ -374,17 +374,12 @@ const studentTwo = {
   },
 };
 
-const {
-  stdName,
-  ID
-} = studentOne;
+const { stdName, ID } = studentOne;
 console.log(stdName); // Mostafa
 console.log(ID); // 102
 
 const {
-  result: {
-    BBA101
-  },
+  result: { BBA101 },
   ...restData
 } = studentTwo;
 console.log(BBA101); // A+
@@ -393,7 +388,7 @@ console.log(restData); // { stdName: 'Yeasin', Dept: 'Business', ID: 101 }
 // Object data overriding by combining/destructuring two objects
 const studentThree = {
   ...studentOne,
-  ...studentTwo
+  ...studentTwo,
 };
 console.log(studentThree);
 
@@ -403,36 +398,33 @@ function showStudent(data) {
 }
 showStudent(studentTwo); // Name is Yeasin. ID is 101
 
-function showStd({
-  stdName,
-  ID,
-  choice = "Programing"
-}) {
+function showStd({ stdName, ID, choice = "Programing" }) {
   console.log(`Name is ${stdName}. ID is ${ID}. Choice is ${choice}`);
 }
 showStd(studentTwo); // Name is Yeasin. ID is 101. Choice is Programing
 // If choice property is in the object, returns the value from the object. If not, returns value from function parameter
 
 // Array filter()
-const items = [{
+const items = [
+  {
     name: "PC",
-    price: 30000
+    price: 30000,
   },
   {
     name: "TV",
-    price: 7000
+    price: 7000,
   },
   {
     name: "AC",
-    price: 45000
+    price: 45000,
   },
   {
     name: "Mobile",
-    price: 5500
+    price: 5500,
   },
   {
     name: "iPod",
-    price: 25000
+    price: 25000,
   },
 ];
 
@@ -451,7 +443,7 @@ console.log(lengthItems); // [ { name: 'Mobile', price: 5500 }, { name: 'iPod', 
 const ints = [5, 7, 12];
 const odds = ints.filter((num) => {
   return num % 2 !== 0;
-})
+});
 console.log(odds); // [ 5, 7 ]
 
 // Array map()
@@ -463,7 +455,7 @@ console.log(itemsName); // [ 'PC', 'TV', 'AC', 'Mobile', 'iPod' ]
 const numbers = [10, 20, 30];
 const squareNum = numbers.map((item) => {
   return item * item;
-})
+});
 console.log(squareNum); // [ 100, 400, 900 ]
 
 // Array find()
@@ -492,7 +484,7 @@ iPod : 25000
 
 [1, 2, 3].forEach((item, index) => {
   console.log(item, index);
-})
+});
 /*
 1 0
 2 1
@@ -513,7 +505,7 @@ console.log(items.some(itemsFree)); // returns false as boolean
 
 // Another example - some()
 const hasNegativeNumbers = [4, 7, -9, 0, 99, 51, -11].some((num) => {
-  return num < 0
+  return num < 0;
 });
 console.log(hasNegativeNumbers); // true
 
@@ -525,7 +517,7 @@ console.log(items.every(itemsAllLessPrice));
 // returns false as boolean because all items are not under condition
 
 const allPositiveNumbers = [4, 7, -9, 0, 99, 51, -11].every((num) => {
-  return num < 0
+  return num < 0;
 });
 console.log(allPositiveNumbers); // false
 
@@ -898,9 +890,9 @@ try {
 } catch (err) {
   console.log("Error found: " + err.stack); // .stack is used to find the error details
 } finally {
-  console.log("finally always runs...")
+  console.log("finally always runs...");
 }
-console.log("This is out of tray, catch, finally and continue next...")
+console.log("This is out of tray, catch, finally and continue next...");
 /*
 try starting...
 Error found: ReferenceError: funcTry is not defined
@@ -918,13 +910,14 @@ This is out of tray, catch, finally and continue next...
 // throw statement ===============
 // Example 1
 function getRectArea(width, height) {
-  if (isNaN(width) || isNaN(height)) { // isNaN - is Not a Number
+  if (isNaN(width) || isNaN(height)) {
+    // isNaN - is Not a Number
     throw "Parameter is not a number!";
   }
 }
 
 try {
-  getRectArea(3, 'A');
+  getRectArea(3, "A");
 } catch (e) {
   console.error(e);
   // Parameter is not a number!
@@ -939,7 +932,6 @@ try {
     throw new SyntaxError("ID not found");
   }
   console.log(userJson);
-
 } catch (e) {
   console.log("JSON Error: " + e.message);
   // JSON Error: ID not found
@@ -993,3 +985,116 @@ let b = 1;
 }
 
 console.log(b); // 1
+
+/* Closure - A feature in JavaScript where an inner function has access to the outer (enclosing) function’s variables — a scope chain
+ */
+var myName = "Mostafa";
+
+function printName() {
+  console.log(myName);
+}
+
+printName(); //Mostafa
+
+myName = "Mahmud";
+printName(); // Mahmud
+
+// Closure - Example 1
+function outer() {
+  const name = "Javascript Closures";
+
+  function inner() {
+    console.log(name);
+  }
+  return inner;
+}
+
+//outer() invoked the first time to store the data in myFunction
+var myFunction = outer();
+// Executes myFunction
+myFunction(); // Javascript Closures
+
+// CLosure - Example 2
+function outerFunc(outerVar) {
+  const hi = "Hi";
+
+  return function innerFunc(innerVar) {
+    console.log(hi);
+    console.log("Outer Variable: " + outerVar);
+    console.log("Inner Variable: " + innerVar);
+  };
+}
+
+const newFunc = outerFunc("Outside");
+newFunc();
+/*
+Hi
+Outer Variable: Outside
+Inner Variable: undefined =====
+*/
+
+newFunc("Inner");
+/*
+Hi
+Outer Variable: Outside
+Inner Variable: Inner =====
+*/
+
+// Closure - Example 3
+function add() {
+  var counter = 5;
+
+  function plus() {
+    counter += 1;
+  }
+  plus();
+  return counter;
+}
+console.log(add()); // 6
+
+// Closure - Example 4 (Self-invoking)
+var add = (function () {
+  var counter = 0;
+  return function () {
+    counter += 1;
+    return counter;
+  };
+})();
+
+console.log(add()); // 1
+console.log(add()); // 2
+console.log(add()); // 3
+
+// Closure - Example 5 (Self-invoking and returning multiple functions)
+var counter = (function () {
+  var counterValue = 0;
+  // Private method
+  function changeBy(value) {
+    counterValue += value;
+  }
+  return {
+    // Public method
+    // Returning functions as property
+    increase: () => {
+      changeBy(1);
+      // return counterValue;
+    },
+    decrease: () => {
+      changeBy(-1);
+    },
+    value: () => {
+      return counterValue;
+    },
+  };
+})();
+
+console.log(counter.value()); // 0
+console.log(counter.increase());
+// returns undefined as increase function has no return function itself
+
+counter.increase();
+counter.increase();
+console.log(counter.value()); // 3
+
+counter.decrease();
+console.log(counter.value()); // 2
