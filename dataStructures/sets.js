@@ -30,6 +30,24 @@ const MySet = function () {
         return collectionSets.length;
     };
 
+    // Return the union of two sets
+    this.union = (otherSet) => {
+        var unionSet = new MySet();
+        var firstSet = this.values();
+        var secondSet = otherSet.values();
+
+        // Add values onto unionSet
+        firstSet.forEach((e) => {
+            unionSet.add(e);
+        });
+
+        // Add values onto unionSet
+        secondSet.forEach((e) => {
+            unionSet.add(e);
+        });
+        return unionSet;
+    };
+
     // Return the intersection of two sets as a new set
     this.intersection = (otherSet) => {
         var intersectionSet = new MySet();
@@ -40,6 +58,18 @@ const MySet = function () {
             }
         });
         return intersectionSet;
+    };
+
+    // Return the difference of two sets as a new set
+    this.difference = (otherSet) => {
+        var differenceSet = new MySet();
+        var firstSet = this.values();
+        firstSet.forEach((e) => {
+            if (!otherSet.has(e)) {
+                differenceSet.add(e);
+            }
+        });
+        return differenceSet;
     };
 
     // this method will test if the set is a subset of a different set
@@ -81,3 +111,12 @@ console.log(setB.intersection(setA).values()); // [ 2, 1 ] as order of setB
 
 // Print size of new intersectionSet
 console.log(setA.intersection(setB).size()); // 2
+
+// Print difference elements of setB in terms of setA
+console.log(setB.difference(setA).values()); // [ 5, 9 ]
+console.log(setA.difference(setB).values());
+// [] Returns empty array because of no difference in setA
+
+// Print new set as unionSet of setA and setB
+console.log(setA.union(setB).values()); // [ 1, 2, 5, 9 ]
+console.log(setA.union(setB).size()); // 4
