@@ -30,6 +30,18 @@ const MySet = function () {
         return collectionSets.length;
     };
 
+    // Remove an element holding its index from a set
+    this.remove = (removeElement) => {
+        if (this.has(removeElement)) {
+            index = collectionSets.indexOf(removeElement);
+
+            // .splice is used to adds/removes items to/from an array, and returns the removed item(s)
+            collectionSets.splice(index, 1); // 1 element removes from index
+            return true;
+        }
+        return false;
+    };
+
     // Return the union of two sets
     this.union = (otherSet) => {
         var unionSet = new MySet();
@@ -120,3 +132,8 @@ console.log(setA.difference(setB).values());
 // Print new set as unionSet of setA and setB
 console.log(setA.union(setB).values()); // [ 1, 2, 5, 9 ]
 console.log(setA.union(setB).size()); // 4
+
+// Remove an element from a set and print values
+setB.remove(0); // returns false as not exists
+setB.remove(9);
+console.log(setB.values()); // [ 5, 2, 1 ]
