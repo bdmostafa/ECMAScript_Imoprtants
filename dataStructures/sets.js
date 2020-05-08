@@ -137,3 +137,40 @@ console.log(setA.union(setB).size()); // 4
 setB.remove(0); // returns false as not exists
 setB.remove(9);
 console.log(setB.values()); // [ 5, 2, 1 ]
+
+
+// Using Set built-in constructor in Javascript ==================================
+// Create new Set object
+const set1 = new Set(["a", "b", "c", "d", "e"])
+const set2 = new Set(["d", "f", 1, "b", "c", "s"])
+set2.add(2);
+
+console.log(set1.values()); // [Set Iterator] { 'a', 'b', 'c', 'd', 'e' }
+console.log(set2.values()); // [Set Iterator] { 'd', 'f', 1, 'b', 'c', 's', 2 }
+
+// The next() method returns an object with two properties done and value
+const iterator = set1.values();
+
+console.log(iterator.next()); // { value: 'a', done: false }
+console.log(iterator.next()); // { value: 'b', done: false }
+
+// Has the value true if the iterator is past the end of the iterated sequence
+// Has the value false if the iterator was able to produce the next value in the sequence
+console.log(iterator.next().value); // c
+console.log(iterator.next().value); // d
+console.log(iterator.next().value); // e
+
+// Any JavaScript value returned by the iterator can be omitted when done is true
+console.log(iterator.next()); // { value: undefined, done: true }
+console.log(iterator.next().value); // undefined
+
+// Delete an element
+set1.delete("a");
+console.log(set1.has("a")); // false
+
+// Add en element and check if it exists
+set1.add("s");
+console.log(set1.has("s"));
+
+// Add and returns values
+console.log(set1.add("d"));
