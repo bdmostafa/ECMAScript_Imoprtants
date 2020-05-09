@@ -1,4 +1,8 @@
-/* Queues works on the FIFO(First in First Out) principle. Hence, it performs two basic operations that is addition of elements at the end of the queue and removal of elements from the front of the queue. Like Stack, Queue is also a linear data structure. */
+/*
+Queues works on the FIFO(First in First Out) principle. Hence, it performs two basic operations
+that is addition of elements at the end of the queue and removal of elements from the front of the queue.
+Like Stack, Queue is also a linear data structure.
+*/
 
 const Queue = function () {
     listQueue = [];
@@ -106,3 +110,72 @@ generateBinary(10);
   '110'
 ]
 */
+
+/*
+Priority Queue is an extension of queue with following properties.
+1. Every item has a priority associated with it.
+2. An element with high priority is dequeued before an element with low priority.
+3. If two elements have the same priority, they are served according to their order in the queue.
+*/
+
+const PriorityQueue = function () {
+    var queueCollection = [];
+
+    this.printCollection = () => {
+        if (this.isEmpty()) return "Empty queue.";
+        return queueCollection;
+    };
+
+    this.enqueue = (e) => {
+        if (this.isEmpty()) {
+            queueCollection.push(e);
+        } else {
+            var added = false;
+            for (var i = 0; i < queueCollection.length; i++) {
+                //checking priorities
+                if (e[1] < queueCollection[i][1]) {
+                    queueCollection.splice(i, 0, e);
+                    added = true;
+                    break;
+                }
+            }
+            if (!added) {
+                queueCollection.push(e);
+            }
+        }
+    };
+
+    this.dequeue = () => {
+        if (this.isEmpty()) return "Underflow queue.";
+
+        // Delete 0th index value
+        var value = queueCollection.shift();
+        return value[0];
+
+        // Or we can use single line in return like below
+        // return queueCollection.shift();
+    };
+
+    this.front = () => {
+        if (this.isEmpty()) return "Empty queue.";
+        return queueCollection[0];
+    };
+
+    this.size = () => {
+        return queueCollection.length;
+    };
+
+    this.isEmpty = () => {
+        return (queueCollection.length === 0);
+    };
+}
+
+var pqueue = new PriorityQueue();
+pqueue.enqueue(["Mostafa Al Mahmud", 3]);
+pqueue.enqueue(["Safwaan Shams", 1]);
+pqueue.enqueue(["Sadia Akter", 2])
+pqueue.enqueue(["Ela", 2]);
+console.log(pqueue.printCollection());
+console.log(pqueue.dequeue());
+console.log(pqueue.front());
+console.log(pqueue.size());
