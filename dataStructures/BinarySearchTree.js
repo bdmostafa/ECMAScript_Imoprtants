@@ -98,19 +98,19 @@ const BinarySearchTree = function () {
                 return null;
             }
             if (data === node.data) {
-                // node has no children 
+                // If node has no children 
                 if (node.left === null && node.right === null) {
                     return null;
                 }
-                // node has no left child 
+                // If node has no left child 
                 if (node.left === null) {
                     return node.right;
                 }
-                // node has no right child 
+                // If node has no right child 
                 if (node.right === null) {
                     return node.left;
                 }
-                // node has two children
+                // If node has two children
                 // Minumum node of the rigt subtree is stored in tempNode
                 var tempNode = this.findMinNode(node.right);
                 node.data = tempNode.data;
@@ -141,14 +141,14 @@ const BinarySearchTree = function () {
     // Find the minimum node in the tree
     this.findMinNode = () => {
         let current = this.root;
-        // while (current.left !== null) {
-        //     current = current.left;
-        // }
-        // return current.data;
+        while (current.left !== null) {
+            current = current.left;
+        }
+        return current.data;
 
         // Or use recurring function
-        if (current.left === null) return current.data;
-        else return this.findMinNode();
+        // if (current.left === null) return current.data;
+        // else return this.findMinNode();
     }
 
     // Find the maximum node in the tree
@@ -158,6 +158,8 @@ const BinarySearchTree = function () {
             current = current.right;
         }
         return current.data;
+
+        // Or use recurring function
         // if (current.right === null) return current.data;
         // else return this.findMaxNode();
     }
@@ -206,6 +208,11 @@ Node {
 console.log(myBST.has(5)); // true
 console.log(myBST.has(30)); // false
 
+console.log(myBST.findMinNode()); // 5
 myBST.remove(5);
+
+// After removing 5
 console.log(myBST.search(5)); // null
-// console.log(myBST.root)
+console.log(myBST.findMinNode()); // 7
+
+console.log(myBST.findMaxNode());
