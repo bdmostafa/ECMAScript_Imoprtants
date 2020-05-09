@@ -130,16 +130,18 @@ const PriorityQueue = function () {
         if (this.isEmpty()) {
             queueCollection.push(e);
         } else {
-            var added = false;
+            var contain = false;
             for (var i = 0; i < queueCollection.length; i++) {
                 //checking priorities
                 if (e[1] < queueCollection[i][1]) {
+                    // splice() method adds/removes items to/from an array, and returns the removed item(s)
+                    // from 'ith' index, remove '0' and replace with 'e'
                     queueCollection.splice(i, 0, e);
-                    added = true;
+                    contain = true;
                     break;
                 }
             }
-            if (!added) {
+            if (!contain) {
                 queueCollection.push(e);
             }
         }
@@ -148,12 +150,12 @@ const PriorityQueue = function () {
     this.dequeue = () => {
         if (this.isEmpty()) return "Underflow queue.";
 
-        // Delete 0th index value
+        // Delete 0th index value (1st element)
         var value = queueCollection.shift();
-        return value[0];
+        return value[0]; // Safwaan Shams
 
-        // Or we can use single line in return like below
-        // return queueCollection.shift();
+        // Or we can use single line in return like below but it return with priority number '1'
+        // return queueCollection.shift(); // [ 'Safwaan Shams', 1 ]
     };
 
     this.front = () => {
@@ -171,11 +173,29 @@ const PriorityQueue = function () {
 }
 
 var pqueue = new PriorityQueue();
+
 pqueue.enqueue(["Mostafa Al Mahmud", 3]);
 pqueue.enqueue(["Safwaan Shams", 1]);
 pqueue.enqueue(["Sadia Akter", 2])
 pqueue.enqueue(["Ela", 2]);
+
 console.log(pqueue.printCollection());
-console.log(pqueue.dequeue());
-console.log(pqueue.front());
-console.log(pqueue.size());
+/*
+Here priority is like 1 >> 2 >> 3
+And if any priority is more than one, output will be by order
+[
+  [ 'Safwaan Shams', 1 ],
+  [ 'Sadia Akter', 2 ],
+  [ 'Ela', 2 ],
+  [ 'Mostafa Al Mahmud', 3 ]
+]
+*/
+
+console.log(pqueue.front()); // [ 'Safwaan Shams', 1 ]
+
+// Delete from priority, not in first enqueue
+console.log(pqueue.dequeue()); // Safwaan Shams
+
+console.log(pqueue.front()); // [ 'Sadia Akter', 2 ]
+
+console.log(pqueue.size()); // 3
