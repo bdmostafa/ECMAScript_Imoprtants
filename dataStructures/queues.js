@@ -58,15 +58,18 @@ const generateBinary = function (n) {
     // Random starting function
     function randomStart() {
         // Return a random integer from 0 to 1
-        return Math.floor(Math.random() * 2);
+        return Math.floor(Math.random() * 2).toString();
     }
 
+    var arrBinary = [];
     // Loop until less zero and print binary numbers
     while (n-- > 0) {
         // Print the front of queue 
+
         var b1 = binaryQueue.front();
+        arrBinary.push(binaryQueue.front());
         binaryQueue.dequeue();
-        console.log(b1);
+
 
         // Store b1 into b2 before changing it 
         var b2 = b1;
@@ -78,12 +81,28 @@ const generateBinary = function (n) {
         binaryQueue.enqueue(b2 + "1");
 
         // Add toString() to get rid of adding 1 with b1 and b2
-        binaryQueue.enqueue(b1 + randomStart().toString() + "0");
+        binaryQueue.enqueue(b1 + randomStart() + "0");
 
-        binaryQueue.enqueue(b2 + randomStart().toString() + "1");
+        binaryQueue.enqueue(b2 + randomStart() + "1");
     }
+
+    console.log(arrBinary);
 }
 
 generateBinary(10);
-// 1 10 11 100 111 100 101 1010 1001 110
-// 0 00 01 010 011 000 001 0010 0011 010
+/*
+[
+  '0',   '00',   '01',
+  '010', '001',  '000',
+  '001', '0010', '0001',
+  '010'
+]
+*/
+/*
+[
+  '1',   '10',   '11',
+  '100', '101',  '100',
+  '101', '1000', '1001',
+  '110'
+]
+*/
