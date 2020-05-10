@@ -53,6 +53,11 @@ const BinarySearchTree = function () {
         }
     };
 
+    // Get root node of a tree
+    this.getRootNode = () => {
+        return this.root;
+    }
+
     // Check for a node if it is exists or not and return true or false
     this.has = (data) => {
         let current = this.root;
@@ -164,7 +169,136 @@ const BinarySearchTree = function () {
         // else return this.findMaxNode();
     }
 
+    this.isBalanced = () => {
+        return (this.findMinHeight() >= this.findMaxHeight() - 1)
+    }
+
+    // Find the minimum distance path from root node to any leaf node in the tree
+    this.findMinHeight = (node = this.root) => {
+        if (node == null) {
+            return -1;
+        };
+        let left = this.findMinHeight(node.left);
+        let right = this.findMinHeight(node.right);
+        if (left < right) {
+            return left + 1;
+        } else {
+            return right + 1;
+        };
+    }
+
+    // Find the maximum distance path from root node to any leaf node in the tree
+    this.findMaxHeight = (node = this.root) => {
+        if (node == null) {
+            return -1;
+        };
+        let left = this.findMaxHeight(node.left);
+        let right = this.findMaxHeight(node.right);
+        if (left > right) {
+            return left + 1;
+        } else {
+            return right + 1;
+        };
+    }
+
+    // Inorder traversal of a tree starting from a given node
+    // Here from root node
+    this.inOrder = () => {
+        if (this.root == null) {
+            return null;
+        } else {
+            var result = [];
+
+            // 1. Traverse the left subtree
+            // 2. Visit the root
+            // 3. Traverse the right subtree
+            function traverseInOrder(node) {
+                // "Short Circuit Conditionals with &&" =========
+                // If node.left exists, recurr traverseInorder function
+                // Or if(node.left) traverseInOrder(node.left);
+                node.left && traverseInOrder(node.left);
+                result.push(node.data);
+                // If node.right exists, recurr traverseInorder function
+                node.right && traverseInOrder(node.right);
+            }
+            traverseInOrder(this.root);
+            return result;
+        };
+    }
+
+    // Preorder traversal from root node (or it can be from a given node)
+    this.preOrder = () => {
+        if (this.root == null) {
+            return null;
+        } else {
+            var result = [];
+
+            // 1. Visit the root
+            // 2. Traverse the left subtree
+            // 3. Traverse the right subtree
+            function traversePreOrder(node) {
+                result.push(node.data);
+                // "Short Circuit Conditionals with &&" =========
+                // If node.left exists, recurr traverseInorder function
+                node.left && traversePreOrder(node.left);
+                // If node.right exists, recurr traverseInorder function
+                node.right && traversePreOrder(node.right);
+            };
+            traversePreOrder(this.root);
+            return result;
+        };
+    }
+
+    // Postorder traversal
+    this.postOrder = () => {
+        if (this.root == null) {
+            return null;
+        } else {
+            var result = [];
+
+            // 1. Traverse the left subtree
+            // 2. Traverse the right subtree
+            // 3. Visit the root
+            function traversePostOrder(node) {
+                // "Short Circuit Conditionals with &&" =========
+                // If node.left exists, recurr traverseInorder function
+                node.left && traversePostOrder(node.left);
+                // If node.right exists, recurr traverseInorder function
+                node.right && traversePostOrder(node.right);
+                result.push(node.data);
+            };
+            traversePostOrder(this.root);
+            return result;
+        }
+    }
+
+    // Level order traversal of the tree
+    this.levelOrder = () => {
+        let result = [];
+        let temp = [];
+        if (this.root != null) {
+            temp.push(this.root);
+            // Loop continues until all the nodes from the tree
+            while (temp.length > 0) {
+                // Find the first element in the array
+                let node = temp.shift();
+                result.push(node.data);
+                if (node.left != null) {
+                    temp.push(node.left);
+                };
+                if (node.right != null) {
+                    temp.push(node.right);
+                };
+                // Push every level with left and right node into result array
+                // Again continue loop until temp.length = zero
+            };
+            return result;
+        } else {
+            return null;
+        };
+    };
 }
+
 
 const myBST = new BinarySearchTree();
 
@@ -179,7 +313,7 @@ myBST.insert(5);
 myBST.insert(9);
 myBST.insert(27);
 
-console.log(myBST.root);
+console.log(myBST.getRootNode());
 /*
          15 
         /  \ 
@@ -214,5 +348,14 @@ myBST.remove(5);
 // After removing 5
 console.log(myBST.search(5)); // null
 console.log(myBST.findMinNode()); // 7
+console.log(myBST.findMaxNode()); // 27
+console.log(myBST.getRootNode());
 
-console.log(myBST.findMaxNode());
+console.log(myBST.findMinHeight()); // 2
+console.log(myBST.findMaxHeight()); // 3
+console.log(myBST.isBalanced()); // true
+
+console.log(myBST.inOrder()); // [5, 7, 9, 10, 13, 15, 17, 22, 25, 27]
+console.log(myBST.preOrder()); // []
+console.log(myBST.postOrder()); // []
+console.log(myBST.levelOrder()); // []
