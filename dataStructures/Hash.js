@@ -30,3 +30,93 @@ var hash = (str, max) => {
     }
     return hash % max;
 };
+
+// Create HashTable constructor
+let HashTable = function () {
+
+    let storage = new Array();
+    const storageMax = 10;
+
+    this.print = () => {
+        console.log(storage)
+    }
+
+    // Add new element to the HashTable passing key, value
+    this.add = (key, value) => {
+        // Hashing the data (key) and store into index variable
+        var index = hash(key, storageMax);
+        if (storage[index] !== undefined) {
+            // Compare the passing key with index key (storage[index][i][0]) then assign value
+            var inserted = false;
+            for (var i = 0; i < storage[index].length; i++) {
+                if (storage[index][i][0] === key) {
+                    storage[index][i][1] = value;
+                    inserted = true;
+                }
+            }
+            // If not matched with key, executes this statement
+            if (inserted === false) {
+                storage[index].push([key, value]);
+            }
+        } else {
+            // If storage[index] is undefined, assign [key, value]
+            storage[index] = [
+                [key, value]
+            ];
+        }
+    };
+
+    // Remove an element from the HashTable
+    this.remove = (key) => {
+        // Store the data given passing through parameter to the index variable
+        var index = hash(key, storageMax);
+        // Compare the key with index key
+        if (storage[index].length === 1 && storage[index][0][0] === key) {
+            delete storage[index];
+        } else {
+            for (var i = 0; i < storage[index].length; i++) {
+                if (storage[index][i][0] === key) {
+                    delete storage[index][i];
+                }
+            }
+        }
+    };
+
+    // Search/Lookup for an element and return
+    this.lookUp = (key) => {
+        var index = hash(key, storageMax);
+        if (storage[index] !== undefined) {
+            for (var i = 0; i < storage[index].length; i++) {
+                if (storage[index][i][0] === key) {
+                    // Return value
+                    return storage[index][i][1];
+                    // Return key, value
+                    // return storage[index][i];
+                }
+            }
+        }
+        return undefined + ": Not found.";
+    };
+
+};
+
+
+console.log(hash('Mostafa', 10)); // 5
+console.log(strToHash32Bit("Mahmud")); // -1997734392
+
+let myHash = new HashTable();
+myHash.add('Mostafa', 'father');
+myHash.add("Shams", "Son");
+myHash.add("Mahmud", "Developer");
+myHash.remove("Mahmud");
+console.log(myHash.lookUp("Shams"))
+myHash.print(); // [ , , , , , [ [ 'Mostafa', 'father' ] ], , , [ [ 'Shams', 'Son' ] ] ]
+
+/*
+[
+  <5 empty items>,
+  [ [ 'Mostafa', 'father' ] ],
+  <2 empty items>,
+  [ [ 'Shams', 'Son' ] ]
+]
+*/
