@@ -20,3 +20,13 @@ var strToHash32Bit = (str) => {
     return hash;
 }
 console.log(strToHash32Bit("Mostafa")); // -1389067687
+
+// Create simple hash function with max limit
+var hash = (str, max) => {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        // charCodeAt() returns the Unicode of the ith character in a string
+        hash += str.charCodeAt(i);
+    }
+    return hash % max;
+};
