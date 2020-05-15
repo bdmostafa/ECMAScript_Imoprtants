@@ -82,16 +82,27 @@ let Trie = function () {
 
 myTrie = new Trie();
 myTrie.add('developer');
+myTrie.add('answer');
+myTrie.add('umbrella');
+myTrie.add('university');
 myTrie.add('banana');
+myTrie.add('ann');
 myTrie.add('teacher');
 myTrie.add('tax');
 myTrie.add('apple');
-myTrie.add('ann');
-myTrie.add('answer');
-myTrie.add('umbrella');
 myTrie.add('under');
-myTrie.add('university');
-console.log(myTrie.hasWord('appl'));
-console.log(myTrie.hasWord('tax'));
-console.log(myTrie.hasWord('unde'));
+
+console.log(myTrie.hasWord('appl')); // false
+console.log(myTrie.hasWord('tax')); // true
+console.log(myTrie.hasWord('unde')); // false
 console.log(myTrie.display());
+/*
+Display node one by one as sequence of Trie structure according to add function
+[
+  'developer', 'answer',
+  'ann',       'apple',
+  'umbrella',  'university',
+  'under',     'banana',
+  'teacher',   'tax'
+]
+*/
