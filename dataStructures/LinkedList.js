@@ -1,4 +1,8 @@
-/* LinkedList */
+/*
+Linked list -  a linear data structure, in which the elements are not stored at contiguous memory locations.
+The elements are linked using pointers. A linked list consists of nodes where each node contains a data field 
+and a reference (link) to the next node in the list.
+*/
 
 // Create LinkedList constructor that has various methods like
 // size(), head(), insert(), remove(), isEmpty(), indexOf(), elementAt(), insertAt(), removeAt()...
