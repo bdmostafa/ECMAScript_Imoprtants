@@ -105,4 +105,29 @@ Display node one by one as sequence of Trie structure according to add function
   'under',     'banana',
   'teacher',   'tax'
 ]
+
+Graphical presentation of this Trie data structure as follows:
+                        root
+                 /  |   |     |    \
+                d   a   u     b     t
+                |   |\  |\    |     |\
+                e   n p m n   a     e a
+                |  /| | | |\  |     | |
+                v s n p b i d n     a x
+                | |   | | | | |     |
+                e w   l r v e a     c
+                | |   | | | | |     |
+                l e   e e e r n     h
+                | |     | |   |     |
+                o r     l r   a     e
+                |       | |         |
+                p       l s         r
+                |       | |
+                e       a i
+                |         |
+                r         t
+                          |
+                          y
+
+
 */
