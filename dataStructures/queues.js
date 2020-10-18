@@ -199,3 +199,34 @@ console.log(pqueue.dequeue()); // Safwaan Shams
 console.log(pqueue.front()); // [ 'Sadia Akter', 2 ]
 
 console.log(pqueue.size()); // 3
+
+
+// Queue FIFO example with class constructor method
+class Queue {
+    constructor() {
+        this.queue = [];
+    }
+    enqueue(item){
+        this.queue.push(item);
+    }
+    dequeue(){
+        if(this.queue.length){
+            return this.queue.shift();
+        }
+    }
+}
+
+const players = new Queue();
+
+players.enqueue('John');
+players.enqueue('Doe');
+players.enqueue('Elice');
+players.enqueue('Bob');
+players.enqueue('Mostafa');
+
+console.log(players.queue); // ['John', 'Doe', 'Elice', 'Bob', 'Mostafa']
+
+const winner = players.dequeue();
+console.log(winner); // John
+
+console.log(players.queue); // ['Doe', 'Elice', 'Bob', 'Mostafa']
