@@ -216,3 +216,46 @@ console.log("Inserting at 3th index position, now myList size: " + myList.size()
 // Inserting at 3th index position, now myList size: 5
 
 console.log(myList.elementAt(3)); // Finance
+
+
+
+// Single, double linkedlist example with class constructor
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor(head) {
+        this.head = head;
+    }
+    add(value) {
+        const newNode = new Node(value);
+        
+        let current = this.head;
+        while(current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+}
+
+const head = new Node(2000);
+
+const myLinkedList = new LinkedList(head);
+myLinkedList.add(3000);
+
+console.log(myLinkedList.head);
+/*
+Node { value: 2000, next: Node { value: 3000, next: null } }
+*/
+
+myLinkedList.add(4000);
+myLinkedList.add(5000);
+
+console.log(myLinkedList.head);
+/*
+Node { value: 2000, next: Node { value: 3000, next: Node { value: 4000, next: Node { value: 5000, next: null } } } }
+*/
