@@ -120,3 +120,36 @@ myHash.print(); // [ , , , , , [ [ 'Mostafa', 'father' ] ], , , [ [ 'Shams', 'So
   [ [ 'Shams', 'Son' ] ]
 ]
 */
+
+
+
+// hash - dictionary using class constructor
+class Dictionary {
+    constructor() {
+        this.dictionary = {};
+    }
+    add(key, value) {
+        this.dictionary[key] = value;
+    }
+    get(key){
+        return this.dictionary[key];
+    }
+}
+
+const phoneBook = new Dictionary();
+
+phoneBook.add('Mostafa', '002157458419');
+phoneBook.add('Mahmud', '005746541412');
+phoneBook.add('Shams', '002145214458');
+
+console.log(phoneBook.dictionary);
+
+/*
+Mostafa: '002157458419',
+Mahmud: '005746541412',
+Shams: '002145214458'
+*/
+
+const ShamsPhoneNum = phoneBook.get('Shams');
+console.log(ShamsPhoneNum); // 002145214458
+
