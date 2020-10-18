@@ -103,3 +103,33 @@ console.log(myStack.size()); // 2
 console.log(myStack.peek()); // Mostafa
 console.log(myStack.pop()); // Mostafa
 console.log(myStack.peek()); // 10
+
+
+// Stack philosophy (LIFO - First In Last Out)
+class Stack {
+    constructor() {
+        this.stack = [];
+    }
+    add(item) {
+        this.stack.push(item);
+    }
+    remove() {
+        if(this.stack.length) {
+            return this.stack.pop();
+        }
+    }
+}
+
+const card = new Stack();
+card.add('A');
+card.add('B');
+card.add('C');
+card.add('D');
+
+console.log(card.stack);
+
+const removedCard = card.remove();
+
+console.log(removedCard);
+
+console.log(card.stack);
